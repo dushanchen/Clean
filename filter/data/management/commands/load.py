@@ -39,9 +39,9 @@ class Command(BaseCommand):
             )
 
             if not p.name:
-                remark = remarks2(i.name)
+                remark = remarks(i.name)
             else:
-                remark = remarks1(p.name)
+                remark = remarks(p.name)
 
             if remark:
                 p.name = remark['name']

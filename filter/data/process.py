@@ -202,8 +202,8 @@ def specs_split(x):
     return {}            
 
     
-def remarks1(x):
-    patten = r'\s*（\D+）\s*'
+def remarks(x):
+    patten = r'\s*（[^（）]*）\s*'
     result = re.findall(patten, x)
     if result:
         name = re.sub(patten,'',x)
@@ -211,11 +211,13 @@ def remarks1(x):
         if name == '':
             name = result[0]
             remarks = ''
+
         return {'name':name, 'remark':remarks}
     else:
         patten = r'\s*（[^）]*\s*'
         result = re.findall(patten, x)
         if result:
+
             name = re.sub(patten,'',x)
             remarks = re.sub(r'\s*|（|）','',result[0])
             if name == '':
@@ -225,19 +227,5 @@ def remarks1(x):
         return {}
 
 
-def remarks2(x):
-    patten = r'\s*（[^（]*）\s*'
-
-    result = re.findall(patten, x)
-    if result:
-        name = re.sub(patten,'',x)
-        remarks = re.sub(r'\s*|（|）','',result[0])
-        if name == '':
-            name = remarks[0]
-            remarks = ''
-        return {'name':name, 'remark':remarks}
-
-    else:
-        return {}
 
 
