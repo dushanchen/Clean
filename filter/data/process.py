@@ -2,19 +2,18 @@ import re
 
 def strip_process(a):
     '''去除首尾空格, 首尾标点, 括号转换为全角'''
-
-    verb = [',', '.', '!', '?', ';', '，', '。', '．', '！', '；', '？', '"', '*','-','/']
-
+    verb = [',', '.', '!', '?', ';', '，', '。', '．', '！', '；', '？', '"', '*','-','/','\n','\t']
     a = a.strip()
-
-    while len(a)>0 and a[0] in verb:
-        a = a[1:]
-    while len(a)>0 and a[len(a)-1] in verb:
-        a = a[:len(a) - 1]
-
     a = a.replace('(', '（').replace(')','）').replace('））','）').replace('（（','（')\
         .replace('【【','（').replace('】】', '）').replace('【', '（').replace('】', '）')
-    
+
+    a = re.sub(r'\s*（\s*','（',a)
+    a = re.sub(r'\s*）\s*','）',a)
+
+    while len(a)>0 and (a[0] in verb or a[0] == '）'):
+        a = a[1:]
+    while len(a)>0 and (a[len(a)-1] in verb or a[len(a)-1] == '（'):
+        a = a[:len(a) - 1]
     return a
 
 
